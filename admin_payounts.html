@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Admin Payout Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; }
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 220px; background-color: #343a40; color: white; padding: 20px 0; }
+        .sidebar h2 { text-align: center; color: #ffc107; margin-bottom: 30px; }
+        .sidebar a { display: block; padding: 10px 20px; text-decoration: none; color: #adb5bd; border-left: 3px solid transparent; transition: background-color 0.2s; }
+        .sidebar a:hover, .sidebar a.active { background-color: #495057; color: white; border-left-color: #007bff; }
+        .content { flex-grow: 1; padding: 30px; }
+        .content h1 { color: #333; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        
+        /* Table Style */
+        .payout-table { width: 100%; border-collapse: collapse; background-color: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); border-radius: 8px; overflow: hidden; }
+        .payout-table th, .payout-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        .payout-table th { background-color: #d1ecf1; color: #0c5460; font-weight: bold; }
+        .payout-table tr:hover { background-color: #f1f8ff; }
+
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-paid { background-color: #d4edda; color: #155724; }
+        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+
+        .actions button { padding: 8px 12px; margin-right: 5px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .actions .approve-btn { background-color: #28a745; color: white; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <a href="admin_dashboard.html">📊 Dashboard</a>
+            <a href="admin_users.html">👥 Users</a>
+            <a href="admin_listings.html">📚 Listings</a>
+            <a href="admin_reviews.html">⭐ Reviews</a>
+            <a href="admin_disputes.html">⚖️ Disputes</a>
+            <a href="admin_analytics.html">📈 Analytics</a>
+            <a href="admin_payouts.html" class="active">💰 Payouts</a>
+        </nav>
+        
+        <div class="content">
+            <h1>💰 Payout Management</h1>
+            <p style="color: #777; margin-bottom: 20px;">Review and process payments to Sellers and Affiliates.</p>
+
+            <h2>Pending Payouts</h2>
+            <table class="payout-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Recipient</th>
+                        <th>Type</th>
+                        <th>Amount (ZMW)</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="payoutsBody">
+                    <tr data-status="pending">
+                        <td>PAY-005</td>
+                        <td>Seller #102 (B. Zulu)</td>
+                        <td>Seller Earnings</td>
+                        <td>5,230.50</td>
+                        <td>Bank Transfer</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td class="actions">
+                            <button class="approve-btn" onclick="processPayout(5)">✅ Approve & Pay</button>
+                        </td>
+                    </tr>
+                    <tr data-status="pending">
+                        <td>PAY-006</td>
+                        <td>Affiliate #3256 (C. Banda)</td>
+                        <td>Affiliate Commission</td>
+                        <td>1,237.50</td>
+                        <td>Mobile Money</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td class="actions">
+                            <button class="approve-btn" onclick="processPayout(6)">✅ Approve & Pay</button>
+                        </td>
+                    </tr>
+                    <tr data-status="paid">
+                        <td>PAY-004</td>
+                        <td>Seller #105 (A. Mumba)</td>
+                        <td>Seller Earnings</td>
+                        <td>7,000.00</td>
+                        <td>Bank Transfer</td>
+                        <td><span class="status-badge status-paid">Paid</span></td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function processPayout(id) {
+            if (confirm(`Confirm processing payout ID PAY-00${id}? This action finalizes the payment.`)) {
+                alert(`Payout PAY-00${id} processed successfully. Status updated to Paid.`);
+            }
+        }
+    </script>
+</body>
+</html>
