@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Admin Sales Analytics</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; }
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 220px; background-color: #343a40; color: white; padding: 20px 0; }
+        .sidebar h2 { text-align: center; color: #ffc107; margin-bottom: 30px; }
+        .sidebar a { display: block; padding: 10px 20px; text-decoration: none; color: #adb5bd; border-left: 3px solid transparent; transition: background-color 0.2s; }
+        .sidebar a:hover, .sidebar a.active { background-color: #495057; color: white; border-left-color: #007bff; }
+        .content { flex-grow: 1; padding: 30px; }
+        .content h1 { color: #333; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .metric-card { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .metric-card h3 { margin-top: 0; font-size: 1em; color: #777; }
+        .metric-card .value { font-size: 1.8em; font-weight: bold; color: #007bff; }
+        .metric-card.revenue .value { color: #28a745; }
+        .metric-card.commission .value { color: #ffc107; }
+        
+        .chart-container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .chart-placeholder { height: 300px; background-color: #e9ecef; border-radius: 4px; text-align: center; line-height: 300px; color: #6c757d; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <a href="admin_dashboard.html">📊 Dashboard</a>
+            <a href="admin_users.html">👥 Users</a>
+            <a href="admin_listings.html">📚 Listings</a>
+            <a href="admin_reviews.html">⭐ Reviews</a>
+            <a href="admin_disputes.html">⚖️ Disputes</a>
+            <a href="admin_analytics.html" class="active">📈 Analytics</a>
+            <a href="admin_payouts.html">💰 Payouts</a>
+        </nav>
+        
+        <div class="content">
+            <h1>📈 Sales & Traffic Analytics</h1>
+
+            <div class="metrics-grid">
+                <div class="metric-card revenue">
+                    <h3>Net Revenue (Last 30 Days)</h3>
+                    <div class="value">ZMW 15,670.00</div>
+                </div>
+                <div class="metric-card commission">
+                    <h3>Affiliate Commissions Paid (30 Days)</h3>
+                    <div class="value">ZMW 1,567.00</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Site Visits (Last 30 Days)</h3>
+                    <div class="value">12,500</div>
+                </div>
+            </div>
+
+            <h2>Monthly Revenue Trend (ZMW)</h2>
+            <div class="chart-container">
+                <div class="chart-placeholder">Placeholder for Revenue Line Chart (ZMW)</div>
+            </div>
+
+            <h2>Traffic Sources</h2>
+            <div class="chart-container">
+                <div class="chart-placeholder">Placeholder for Traffic Pie Chart (Direct, Affiliate, Search)</div>
+            </div>
+            
+            <p style="font-size: 0.9em; color: #555;">*Data is calculated based on successful transactions processed through the checkout system.</p>
+        </div>
+    </div>
+</body>
+</html>
