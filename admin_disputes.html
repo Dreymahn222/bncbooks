@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Admin Dispute Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; }
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 220px; background-color: #343a40; color: white; padding: 20px 0; }
+        .sidebar h2 { text-align: center; color: #ffc107; margin-bottom: 30px; }
+        .sidebar a { display: block; padding: 10px 20px; text-decoration: none; color: #adb5bd; border-left: 3px solid transparent; transition: background-color 0.2s; }
+        .sidebar a:hover, .sidebar a.active { background-color: #495057; color: white; border-left-color: #007bff; }
+        .content { flex-grow: 1; padding: 30px; }
+        .content h1 { color: #333; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        
+        /* Table Style */
+        .dispute-table { width: 100%; border-collapse: collapse; background-color: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); border-radius: 8px; overflow: hidden; }
+        .dispute-table th, .dispute-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        .dispute-table th { background-color: #f8d7da; color: #721c24; font-weight: bold; }
+        .dispute-table tr:hover { background-color: #f1f8ff; }
+
+        .status-open { background-color: #fff3cd; color: #856404; }
+        .status-closed { background-color: #d4edda; color: #155724; }
+        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+
+        .actions button { padding: 8px 12px; margin-right: 5px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .actions .resolve-btn { background-color: #28a745; color: white; }
+        .actions .view-btn { background-color: #007bff; color: white; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <a href="admin_dashboard.html">📊 Dashboard</a>
+            <a href="admin_users.html">👥 Users</a>
+            <a href="admin_listings.html">📚 Listings</a>
+            <a href="admin_reviews.html">⭐ Reviews</a>
+            <a href="admin_disputes.html" class="active">⚖️ Disputes</a>
+            <a href="admin_analytics.html">📈 Analytics</a>
+            <a href="admin_payouts.html">💰 Payouts</a>
+        </nav>
+        
+        <div class="content">
+            <h1>⚖️ Dispute Management</h1>
+
+            <table class="dispute-table">
+                <thead>
+                    <tr>
+                        <th>Case ID</th>
+                        <th>Type</th>
+                        <th>Related Order/Item</th>
+                        <th>Filed By</th>
+                        <th>Date Filed</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="disputesBody">
+                    <tr data-status="open">
+                        <td>DIS-105</td>
+                        <td>Download Error</td>
+                        <td>Order #1234 / The Quantum Leap</td>
+                        <td>Alice Mumba</td>
+                        <td>2024-11-20</td>
+                        <td><span class="status-badge status-open">Open</span></td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewDispute(105)">🔍 View</button>
+                            <button class="resolve-btn" onclick="resolveDispute(105, 'Download Re-sent')">✅ Resolve</button>
+                        </td>
+                    </tr>
+                    <tr data-status="open">
+                        <td>DIS-106</td>
+                        <td>Content Inaccuracy</td>
+                        <td>Shadows of Rome</td>
+                        <td>Benson Zulu (Seller)</td>
+                        <td>2024-11-21</td>
+                        <td><span class="status-badge status-open">Open</span></td>
+                        <td class="actions">
+                            <button class="view-btn" onclick="viewDispute(106)">🔍 View</button>
+                            <button class="resolve-btn" onclick="resolveDispute(106, 'Seller warned')">✅ Resolve</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function viewDispute(id) {
+            alert(`Loading full case details for Dispute ID: ${id}`);
+        }
+        function resolveDispute(id, resolution) {
+            if (confirm(`Confirm resolution for Dispute ID ${id}: ${resolution}?`)) {
+                alert(`Dispute ${id} resolved. Status updated to Closed.`);
+            }
+        }
+    </script>
+</body>
+</html>
