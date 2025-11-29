@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1e7e34;
+        }
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔑 Login to BNC BOOKS</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" required>
+
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p class="message" id="loginMessage"></p>
+        <p style="text-align: center; margin-top: 15px;">Need an account? <a href="#registration-page">Register</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const messageElement = document.getElementById('loginMessage');
+
+            // Simple mock login
+            if (email === 'test@example.com' && password === 'password') {
+                messageElement.textContent = "Login successful! Redirecting to profile...";
+                messageElement.style.color = 'green';
+                setTimeout(() => {
+                    // Simulate redirect to a profile/dashboard
+                    window.location.hash = 'profile-page';
+                    messageElement.textContent = '';
+                }, 1500);
+            } else if (email.trim() === '' || password.trim() === '') {
+                 messageElement.textContent = "Please enter your email and password.";
+                 messageElement.style.color = 'red';
+            } else {
+                messageElement.textContent = "Invalid email or password.";
+                messageElement.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
