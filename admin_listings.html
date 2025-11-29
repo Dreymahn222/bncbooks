@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Admin Listing Moderation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; }
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 220px; background-color: #343a40; color: white; padding: 20px 0; }
+        .sidebar h2 { text-align: center; color: #ffc107; margin-bottom: 30px; }
+        .sidebar a { display: block; padding: 10px 20px; text-decoration: none; color: #adb5bd; border-left: 3px solid transparent; transition: background-color 0.2s; }
+        .sidebar a:hover, .sidebar a.active { background-color: #495057; color: white; border-left-color: #007bff; }
+        .content { flex-grow: 1; padding: 30px; }
+        .content h1 { color: #333; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        
+        /* Table Style */
+        .listing-table { width: 100%; border-collapse: collapse; background-color: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); border-radius: 8px; overflow: hidden; }
+        .listing-table th, .listing-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        .listing-table th { background-color: #f8f9fa; color: #555; font-weight: bold; }
+        .listing-table tr:hover { background-color: #f1f8ff; }
+
+        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-active { background-color: #d4edda; color: #155724; }
+        .status-rejected { background-color: #f8d7da; color: #721c24; }
+
+        .actions button { padding: 8px 12px; margin-right: 5px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .actions .approve-btn { background-color: #28a745; color: white; }
+        .actions .reject-btn { background-color: #dc3545; color: white; }
+        .filter-bar { margin-bottom: 20px; }
+        .filter-bar select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <a href="admin_dashboard.html">📊 Dashboard</a>
+            <a href="admin_users.html">👥 Users</a>
+            <a href="admin_listings.html" class="active">📚 Listings</a>
+            <a href="admin_reviews.html">⭐ Reviews</a>
+            <a href="admin_disputes.html">⚖️ Disputes</a>
+            <a href="admin_analytics.html">📈 Analytics</a>
+            <a href="admin_payouts.html">💰 Payouts</a>
+        </nav>
+        
+        <div class="content">
+            <h1>📚 Listing Moderation</h1>
+
+            <div class="filter-bar">
+                <label for="filterStatus">Filter by Status:</label>
+                <select id="filterStatus" onchange="filterListings()">
+                    <option value="pending">Pending Approval (2)</option>
+                    <option value="active">Active</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+
+            <table class="listing-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Seller</th>
+                        <th>Price (ZMW)</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="listingsBody">
+                    <tr data-status="pending">
+                        <td>201</td>
+                        <td>Zambian Wildlife Guide</td>
+                        <td>Seller #102</td>
+                        <td>400.00</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td class="actions">
+                            <button class="approve-btn" onclick="moderate(201, 'approve')">✅ Approve</button>
+                            <button class="reject-btn" onclick="moderate(201, 'reject')">❌ Reject</button>
+                        </td>
+                    </tr>
+                    <tr data-status="active">
+                        <td>101</td>
+                        <td>The Quantum Leap</td>
+                        <td>Seller #105</td>
+                        <td>637.50</td>
+                        <td><span class="status-badge status-active">Active</span></td>
+                        <td class="actions">
+                            <button class="reject-btn" onclick="moderate(101, 'delete')">🗑️ Delete</button>
+                        </td>
+                    </tr>
+                    <tr data-status="pending">
+                        <td>202</td>
+                        <td>Luapula Legends</td>
+                        <td>Seller #110</td>
+                        <td>250.00</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td class="actions">
+                            <button class="approve-btn" onclick="moderate(202, 'approve')">✅ Approve</button>
+                            <button class="reject-btn" onclick="moderate(202, 'reject')">❌ Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function moderate(id, action) {
+            alert(`Listing ID ${id} - Action: ${action.toUpperCase()}`);
+            if (action === 'approve') {
+                 // In a real app, update row status to Active
+            } else if (action === 'reject') {
+                 // In a real app, update row status to Rejected
+            } else if (action === 'delete') {
+                 if(confirm(`Confirm delete of Listing ID ${id}?`)) { /* delete row */ }
+            }
+        }
+        function filterListings() {
+            const status = document.getElementById('filterStatus').value;
+            alert(`Filtering listings by status: ${status}`);
+        }
+    </script>
+</body>
+</html>
