@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .cart-layout {
+            display: flex;
+            gap: 20px;
+        }
+        .cart-items {
+            flex: 3;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .cart-summary {
+            flex: 1;
+            background-color: #e6f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            height: fit-content;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .item-details {
+            flex-grow: 1;
+            padding-left: 15px;
+        }
+        .item-details h4 {
+            margin: 0 0 5px 0;
+            color: #007bff;
+        }
+        .item-details p {
+            margin: 0;
+            color: #777;
+        }
+        .item-image {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .item-quantity {
+            width: 100px;
+            text-align: center;
+        }
+        .item-quantity input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .item-price {
+            width: 80px;
+            text-align: right;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .summary-total {
+            border-top: 2px solid #007bff;
+            padding-top: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .checkout-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        .checkout-btn:hover {
+            background-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Your Shopping Cart</h1>
+        <div class="cart-layout">
+            <div class="cart-items" id="cartItems">
+                <p id="emptyCartMessage" style="text-align: center; color: #777; display: none;">Your cart is empty.</p>
+            </div>
+            
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shipping">$5.00</span>
+                </div>
+                <div class="summary-total summary-row">
+                    <span>Total:</span>
+                    <span id="grandTotal">$5.00</span>
+                </div>
+                [span_14](start_span)<a href="checkout.html"><button class="checkout-btn">Proceed to Checkout[span_14](end_span)</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [
+            { id: 1, title: 'The Quantum Leap', price: 25.50, quantity: 1, image: 'book1.jpg' },
+            { id: 4, title: 'The Silent Witness', price: 12.00, quantity: 2, image: 'book4.jpg' },
+        ];
+        const SHIPPING_COST = 5.00;
+
+        function renderCart() {
+            const itemsContainer = document.getElementById('cartItems');
+            itemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                document.getElementById('emptyCartMessage').style.display = 'block';
+                document.getElementById('subtotal').textContent = '$0.00';
+                document.getElementById('shipping').textContent = '$0.00';
+                document.getElementById('grandTotal').textContent = '$0.00';
+                return;
+            }
+
+            document.getElementById('emptyCartMessage').style.display = 'none';
+
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="item-image" onerror="this.src='placeholder.jpg';">
+                    <div class="item-details">
+                        <h4>${item.title}</h4>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="item-quantity">
+                        <input type="number" value="${item.quantity}" min="1" 
+                                onchange="updateQuantity(${item.id}, this.value)">
+                    </div>
+                    <div class="item-price">$${itemTotal.toFixed(2)}</div>
+                    <button class="remove-btn" onclick="removeItem(${item.id})">❌</button>
+                `;
+                itemsContainer.appendChild(itemDiv);
+            });
+
+            // Update Summary
+            const grandTotal = subtotal + SHIPPING_COST;
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `$${SHIPPING_COST.toFixed(2)}`;
+            document.getElementById('grandTotal').textContent = `$${grandTotal.toFixed(2)}`;
+        }
+
+        function updateQuantity(id, newQuantity) {
+            const index = cart.findIndex(item => item.id === id);
+            if (index !== -1) {
+                const qty = parseInt(newQuantity);
+                if (qty > 0) {
+                    cart[index].quantity = qty;
+                } else {
+                    removeItem(id); // Remove if quantity goes to 0
+                }
+                renderCart();
+            }
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(item => item.id !== id);
+            renderCart();
+            alert('Item removed from cart.');
+        }
+
+        // Initialize cart display
+        renderCart();
+    </script>
+</body>
+</html>
