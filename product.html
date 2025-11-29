@@ -68,7 +68,7 @@
             background-color: #e0a800;
         }
         
-        [span_8](start_span)/* Reviews Section[span_8](end_span) */
+        /* Reviews Section */
         .reviews-section {
             margin-top: 30px;
         }
@@ -130,9 +130,7 @@
                 <p><strong>Genre:</strong> <span id="bookGenre">Fiction</span></p>
                 <p><strong>Seller:</strong> <span id="bookSeller">Roman Booksellers Co.</span></p>
                 <div class="star-rating">⭐⭐⭐⭐ (4.0)</div>
-                <div class="price" id="bookPrice">$18.99</div>
-                
-                [span_9](start_span)<h2>Description[span_9](end_span)</h2>
+                <div class="price" id="bookPrice">ZMW 474.75</div> <h2>Description</h2>
                 <p id="bookDescription">A gripping historical epic set in the final days of the Roman Empire. Follow the tale of a centurion caught between loyalty and survival as the city collapses around him. This book features stunning imagery and a deeply researched narrative.</p>
                 
                 <button class="action-button" onclick="addToCart(2, 'Shadows of Rome')">Add to Cart</button>
@@ -140,9 +138,9 @@
         </div>
 
         <div class="reviews-section">
-            [span_10](start_span)<h2>Customer Reviews & Ratings[span_10](end_span)</h2>
+            <h2>Customer Reviews & Ratings</h2>
             <div class="review-form">
-                [span_11](start_span)<p><strong>Leave a Review (Verified Buyers Only)[span_11](end_span):</strong></p>
+                <p><strong>Leave a Review (Verified Buyers Only):</strong></p>
                 <form id="addReviewForm">
                     <label for="reviewRating">Rating:</label>
                     <select id="reviewRating" required>
@@ -174,7 +172,6 @@
     </div>
 
     <script>
-        // Simple function to mock adding a review
         document.getElementById('addReviewForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -186,13 +183,13 @@
             const newReview = document.createElement('div');
             newReview.className = 'review-item';
             newReview.innerHTML = `
-                [span_12](start_span)<strong>Reviewer: You (Pending Admin Moderation[span_12](end_span))</strong>
+                <strong>Reviewer: You (Pending Admin Moderation)</strong>
                 <div class="rating">${stars}</div>
                 <p>${content}</p>
             `;
             
             reviewList.prepend(newReview);
-            [span_13](start_span)alert('Review submitted for moderation[span_13](end_span)!');
+            alert('Review submitted for moderation!');
             document.getElementById('addReviewForm').reset();
         });
 
