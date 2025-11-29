@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Seller Order Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .order-table th, .order-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .order-table th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: bold;
+        }
+        .order-table tr:hover {
+            background-color: #f1f8ff;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-processing {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        .manage-controls select {
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+        }
+        .manage-controls button {
+            background-color: #007bff;
+            color: white;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .manage-controls button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Seller Order Management</h1>
+        <p style="color: #777;">View and manage the status of orders containing your books.</p>
+
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Items Sold (Your books)</th>
+                    <th>Total Earned (ZMW)</th>
+                    <th>Status</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody">
+                <tr data-order-id="1001" data-initial-status="Completed">
+                    <td>#1001</td>
+                    <td>2024-10-25</td>
+                    <td>Alice M.</td>
+                    <td>The Quantum Leap (x1)</td>
+                    <td>637.50</td>
+                    <td><span class="status-badge status-completed">Completed</span></td>
+                    <td class="manage-controls">
+                        <select id="status-1001">
+                            <option value="Completed" selected>Completed</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                        <button onclick="updateStatus('1001')">Save</button>
+                    </td>
+                </tr>
+
+                <tr data-order-id="1002" data-initial-status="Processing">
+                    <td>#1002</td>
+                    <td>2024-10-26</td>
+                    <td>Benson Z.</td>
+                    <td>The Silent Witness (x2)</td>
+                    <td>600.00</td>
+                    <td><span class="status-badge status-processing">Processing</span></td>
+                    <td class="manage-controls">
+                        <select id="status-1002">
+                            <option value="Completed">Completed</option>
+                            <option value="Processing" selected>Processing</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                        <button onclick="updateStatus('1002')">Save</button>
+                    </td>
+                </tr>
+
+                <tr data-order-id="1003" data-initial-status="Pending">
+                    <td>#1003</td>
+                    <td>2024-10-27</td>
+                    <td>Chris T.</td>
+                    <td>Code Mastery (x1), Shadows of Rome (x1)</td>
+                    <td>1474.75</td>
+                    <td><span class="status-badge status-pending">Pending</span></td>
+                    <td class="manage-controls">
+                        <select id="status-1003">
+                            <option value="Completed">Completed</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Pending" selected>Pending</option>
+                        </select>
+                        <button onclick="updateStatus('1003')">Save</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p style="margin-top: 20px; font-size: 0.9em; color: #555;">
+        *Note: Changing the status to 'Completed' triggers the digital download link generation for the buyer and updates the 'Order Status Updates via email' requirement.
+        </p>
+    </div>
+
+    <script>
+        function updateStatus(orderId) {
+            const selectElement = document.getElementById(`status-${orderId}`);
+            const newStatus = selectElement.value;
+            const statusCell = selectElement.closest('td').previousElementSibling; 
+            
+            // Update the visual status badge
+            const badge = statusCell.querySelector('.status-badge');
+            badge.textContent = newStatus;
+            
+            badge.className = 'status-badge'; // Reset classes
+            if (newStatus === 'Completed') {
+                badge.classList.add('status-completed');
+                alert(`Order #${orderId} marked as COMPLETED. Download link generated and email sent to buyer.`);
+            } else if (newStatus === 'Processing') {
+                badge.classList.add('status-processing');
+                alert(`Order #${orderId} marked as PROCESSING.`);
+            } else {
+                badge.classList.add('status-pending');
+                alert(`Order #${orderId} marked as PENDING.`);
+            }
+        }
+    </script>
+</body>
+</html>
