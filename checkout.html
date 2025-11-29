@@ -126,12 +126,12 @@
                     
                     <div class="payment-option">
                         <input type="radio" name="paymentMethod" id="payCreditCard" value="credit" checked onchange="showPaymentDetails('credit')">
-                        <label for="payCreditCard">Credit/Debit Card</label>
+                        <label for="payCreditCard">Credit/Debit Card (Visa/Mastercard)</label>
                     </div>
 
                     <div class="payment-option">
-                        <input type="radio" name="paymentMethod" id="payPayPal" value="paypal" onchange="showPaymentDetails('paypal')">
-                        <label for="payPayPal">PayPal</label>
+                        <input type="radio" name="paymentMethod" id="payMobileMoney" value="mobile" onchange="showPaymentDetails('mobile')">
+                        <label for="payMobileMoney">Mobile Money (Airtel Money/MTN MoMo)</label>
                     </div>
 
                     <div class="payment-option">
@@ -155,21 +155,21 @@
                 <div class="order-summary">
                     <h2>Order Summary</h2>
                     <div id="summaryItems">
-                        <div class="summary-row"><span>The Quantum Leap (x1)</span><span>$25.50</span></div>
-                        <div class="summary-row"><span>The Silent Witness (x2)</span><span>$24.00</span></div>
+                        <div class="summary-row"><span>The Quantum Leap (x1)</span><span>ZMW 637.50</span></div>
+                        <div class="summary-row"><span>The Silent Witness (x2)</span><span>ZMW 600.00</span></div>
                     </div>
                     
                     <div class="summary-row" style="margin-top: 15px;">
                         <span>Subtotal:</span>
-                        <span id="subtotal">$49.50</span>
+                        <span id="subtotal">ZMW 1237.50</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping:</span>
-                        <span id="shipping">$0.00</span>
+                        <span id="shipping">ZMW 0.00</span>
                     </div>
                     <div class="summary-total summary-row">
                         <span>Total Due:</span>
-                        <span id="grandTotal">$49.50</span>
+                        <span id="grandTotal">ZMW 1237.50</span>
                     </div>
 
                     <button type="submit" class="place-order-btn">Place Order & Get Download</button>
@@ -180,17 +180,17 @@
     </div>
 
     <script>
-        const initialSubtotal = 49.50; // Mock total from cart
-        const shippingCost = 0.00; // Corrected for digital goods
+        const initialSubtotal = 1237.50; // Mock total from cart in ZMW
+        const shippingCost = 0.00; 
 
-        // Update summary display to confirm zero shipping
-        document.getElementById('subtotal').textContent = `$${initialSubtotal.toFixed(2)}`;
-        document.getElementById('shipping').textContent = `$${shippingCost.toFixed(2)}`;
-        document.getElementById('grandTotal').textContent = `$${(initialSubtotal + shippingCost).toFixed(2)}`;
+        // Update summary display
+        document.getElementById('subtotal').textContent = `ZMW ${initialSubtotal.toFixed(2)}`;
+        document.getElementById('shipping').textContent = `ZMW ${shippingCost.toFixed(2)}`;
+        document.getElementById('grandTotal').textContent = `ZMW ${(initialSubtotal + shippingCost).toFixed(2)}`;
 
         function showPaymentDetails(method) {
             const detailsDiv = document.getElementById('paymentDetails');
-            detailsDiv.innerHTML = ''; // Clear previous details
+            detailsDiv.innerHTML = ''; 
 
             let html = '';
             switch (method) {
@@ -206,11 +206,11 @@
                         </div>
                     `;
                     break;
-                case 'paypal':
-                    html = '<p>You will be redirected to PayPal to complete your purchase securely.</p>';
+                case 'mobile':
+                    html = '<p>Enter your Mobile Money phone number. A push notification will be sent to your device to authorize the payment.</p><input type="text" placeholder="e.g. 097XXXXXXXX" required>';
                     break;
                 case 'crypto':
-                    html = '<p>A wallet address will be provided on the next screen. Transaction must be confirmed within 30 minutes.</p>';
+                    html = '<p>A unique Bitcoin/Ethereum wallet address will be provided on the next screen. Transaction must be confirmed within 30 minutes.</p>';
                     break;
             }
             detailsDiv.innerHTML = html;
@@ -220,11 +220,13 @@
             event.preventDefault();
             
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-            alert(`Order placed successfully! Payment method: ${paymentMethod}. Your download links will be sent to test@example.com.`);
+            alert(`Order placed successfully! Total: ZMW ${initialSubtotal.toFixed(2)}. Payment method: ${paymentMethod}. Your download links will be sent to test@example.com.`);
             
-            // In a real app, successful checkout would redirect to order confirmation/download page.
             window.location.hash = 'order-confirmation';
         });
+
+        // Initialize details section on load
+        window.onload = () => showPaymentDetails('credit');
     </script>
 </body>
 </html>
