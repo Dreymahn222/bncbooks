@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; }
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 220px; background-color: #343a40; color: white; padding: 20px 0; }
+        .sidebar h2 { text-align: center; color: #ffc107; margin-bottom: 30px; }
+        .sidebar a { display: block; padding: 10px 20px; text-decoration: none; color: #adb5bd; border-left: 3px solid transparent; transition: background-color 0.2s; }
+        .sidebar a:hover, .sidebar a.active { background-color: #495057; color: white; border-left-color: #007bff; }
+        .content { flex-grow: 1; padding: 30px; }
+        .content h1 { color: #333; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .stat-card h3 { margin-top: 0; font-size: 1.1em; color: #777; }
+        .stat-card .value { font-size: 2.2em; font-weight: bold; color: #007bff; }
+        .stat-card.sales .value { color: #28a745; }
+        .stat-card.users .value { color: #ffc107; }
+        .stat-card.payouts .value { color: #dc3545; }
+        
+        .recent-activity { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .activity-item { padding: 10px 0; border-bottom: 1px dashed #eee; font-size: 0.9em; }
+        .activity-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <a href="admin_dashboard.html" class="active">📊 Dashboard</a>
+            <a href="admin_users.html">👥 Users</a>
+            <a href="admin_listings.html">📚 Listings</a>
+            <a href="admin_reviews.html">⭐ Reviews</a>
+            <a href="admin_disputes.html">⚖️ Disputes</a>
+            <a href="admin_analytics.html">📈 Analytics</a>
+            <a href="admin_payouts.html">💰 Payouts</a>
+        </nav>
+        
+        <div class="content">
+            <h1>📊 System Overview</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card sales">
+                    <h3>Total Sales (Lifetime)</h3>
+                    <div class="value">ZMW 580,200</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Books Sold (Last 30 Days)</h3>
+                    <div class="value">1,560</div>
+                </div>
+                <div class="stat-card users">
+                    <h3>Total Registered Users</h3>
+                    <div class="value">4,500</div>
+                </div>
+                <div class="stat-card payouts">
+                    <h3>Pending Payouts</h3>
+                    <div class="value">ZMW 12,500</div>
+                </div>
+            </div>
+
+            <h2>Recent Activity & Moderation Alerts</h2>
+            <div class="recent-activity">
+                <div class="activity-item"><strong>NEW LISTING:</strong> "Zambian History" posted by Seller ID #45. <span style="color: red; float: right;">PENDING APPROVAL</span></div>
+                <div class="activity-item"><strong>NEW DISPUTE:</strong> Order #1005: Download link broken.</div>
+                <div class="activity-item"><strong>NEW REVIEW:</strong> 1-star rating for "The Silent Witness". <span style="color: red; float: right;">MODERATE</span></div>
+                <div class="activity-item"><strong>PAYOUT:</strong> Payout to Affiliate ID #99 for ZMW 1,500 completed.</div>
+                <div class="activity-item"><strong>NEW USER:</strong> Seller account created by Chanda B.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
