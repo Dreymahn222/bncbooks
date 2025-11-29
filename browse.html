@@ -147,10 +147,10 @@
                 <div class="filter-group">
                     <label for="sortBy">Sort By:</label>
                     <select id="sortBy" onchange="filterBooks()">
-                        [span_0](start_span)<option value="popularity">Popularity[span_0](end_span)</option>
-                        [span_1](start_span)<option value="newest">Newest[span_1](end_span)</option>
-                        [span_2](start_span)<option value="priceAsc">Price (Low to High)[span_2](end_span)</option>
-                        [span_3](start_span)<option value="priceDesc">Price (High to Low)[span_3](end_span)</option>
+                        <option value="popularity">Popularity</option>
+                        <option value="newest">Newest</option>
+                        <option value="priceAsc">Price (Low to High)</option>
+                        <option value="priceDesc">Price (High to Low)</option>
                     </select>
                 </div>
             </div>
@@ -162,11 +162,12 @@
 
     <script>
         const mockBooks = [
-            { id: 1, title: 'The Quantum Leap', author: 'Dr. Anna Physics', genre: 'Science', price: 25.50, popularity: 5, newest: 3, image: 'book1.jpg' },
-            { id: 2, title: 'Shadows of Rome', author: 'Historical Historian', genre: 'Fiction', price: 18.99, popularity: 8, newest: 1, image: 'book2.jpg' },
-            { id: 3, title: 'Code Mastery', author: 'C. Coder', genre: 'Science', price: 40.00, popularity: 2, newest: 5, image: 'book3.jpg' },
-            { id: 4, title: 'The Silent Witness', author: 'Mystery Writer', genre: 'Thriller', price: 12.00, popularity: 10, newest: 2, image: 'book4.jpg' },
-            { id: 5, title: 'Biography of Jane Doe', author: 'A. B. Writer', genre: 'Biography', price: 22.75, popularity: 6, newest: 4, image: 'book5.jpg' },
+            // Prices updated to more realistic Zambian Kwacha (ZMW) values
+            { id: 1, title: 'The Quantum Leap', author: 'Dr. Anna Physics', genre: 'Science', price: 637.50, popularity: 5, newest: 3, image: 'book1.jpg' },
+            { id: 2, title: 'Shadows of Rome', author: 'Historical Historian', genre: 'Fiction', price: 474.75, popularity: 8, newest: 1, image: 'book2.jpg' },
+            { id: 3, title: 'Code Mastery', author: 'C. Coder', genre: 'Science', price: 1000.00, popularity: 2, newest: 5, image: 'book3.jpg' },
+            { id: 4, title: 'The Silent Witness', author: 'Mystery Writer', genre: 'Thriller', price: 300.00, popularity: 10, newest: 2, image: 'book4.jpg' },
+            { id: 5, title: 'Biography of Jane Doe', author: 'A. B. Writer', genre: 'Biography', price: 568.75, popularity: 6, newest: 4, image: 'book5.jpg' },
         ];
 
         function renderBooks(books) {
@@ -187,7 +188,7 @@
                         <a href="product.html?id=${book.id}"><h4>${book.title}</h4></a>
                         <p>By: ${book.author}</p>
                         <p>Genre: ${book.genre}</p>
-                        <p class="price">$${book.price.toFixed(2)}</p>
+                        <p class="price">ZMW ${book.price.toFixed(2)}</p>
                         <button class="add-to-cart" onclick="addToCart(${book.id}, '${book.title}')">Add to Cart</button>
                     </div>
                 `;
@@ -198,25 +199,21 @@
         function filterBooks() {
             let filtered = [...mockBooks]; 
 
-            [span_4](start_span)// 1. Filtering by Title[span_4](end_span)
+            // ... filtering logic (same as before) ...
             const titleSearch = document.getElementById('searchTitle').value.toLowerCase();
             if (titleSearch) {
                 filtered = filtered.filter(book => book.title.toLowerCase().includes(titleSearch));
             }
-
-            [span_5](start_span)// 2. Filtering by Author[span_5](end_span)
             const authorSearch = document.getElementById('searchAuthor').value.toLowerCase();
             if (authorSearch) {
                 filtered = filtered.filter(book => book.author.toLowerCase().includes(authorSearch));
             }
-
-            [span_6](start_span)// 3. Filtering by Genre[span_6](end_span)
             const genreFilter = document.getElementById('filterGenre').value;
             if (genreFilter) {
                 filtered = filtered.filter(book => book.genre === genreFilter);
             }
             
-            [span_7](start_span)// 4. Sorting[span_7](end_span)
+            // ... sorting logic (same as before) ...
             const sortBy = document.getElementById('sortBy').value;
             switch (sortBy) {
                 case 'popularity':
@@ -231,7 +228,6 @@
                 case 'priceDesc':
                     filtered.sort((a, b) => b.price - a.price);
                     break;
-                // Price filter is complex and usually requires range inputs, but for simplicity, we focus on sorting by price here.
             }
 
             renderBooks(filtered);
@@ -239,10 +235,8 @@
 
         function addToCart(id, title) {
             alert(`"${title}" (ID: ${id}) added to cart!`);
-            // In a real application, this would update local storage or session state.
         }
 
-        // Initialize display
         filterBooks();
     </script>
 </body>
