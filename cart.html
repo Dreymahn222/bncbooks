@@ -129,15 +129,15 @@
                 <h3>Order Summary</h3>
                 <div class="summary-row">
                     <span>Subtotal:</span>
-                    <span id="subtotal">$0.00</span>
+                    <span id="subtotal">ZMW 0.00</span>
                 </div>
                 <div class="summary-row" id="shippingRow" style="display: none;">
                     <span>Shipping:</span>
-                    <span id="shipping">$0.00</span>
+                    <span id="shipping">ZMW 0.00</span>
                 </div>
                 <div class="summary-total summary-row">
                     <span>Total:</span>
-                    <span id="grandTotal">$0.00</span>
+                    <span id="grandTotal">ZMW 0.00</span>
                 </div>
                 <a href="checkout.html"><button class="checkout-btn">Proceed to Checkout</button></a>
             </div>
@@ -145,11 +145,11 @@
     </div>
 
     <script>
+        // Prices updated to ZMW
         let cart = [
-            { id: 1, title: 'The Quantum Leap', price: 25.50, quantity: 1, image: 'book1.jpg' },
-            { id: 4, title: 'The Silent Witness', price: 12.00, quantity: 2, image: 'book4.jpg' },
+            { id: 1, title: 'The Quantum Leap', price: 637.50, quantity: 1, image: 'book1.jpg' },
+            { id: 4, title: 'The Silent Witness', price: 300.00, quantity: 2, image: 'book4.jpg' },
         ];
-        // Corrected: Shipping is 0.00 for digital goods
         const SHIPPING_COST = 0.00; 
 
         function renderCart() {
@@ -158,9 +158,9 @@
             
             if (cart.length === 0) {
                 document.getElementById('emptyCartMessage').style.display = 'block';
-                document.getElementById('subtotal').textContent = '$0.00';
+                document.getElementById('subtotal').textContent = 'ZMW 0.00';
                 document.getElementById('shippingRow').style.display = 'none';
-                document.getElementById('grandTotal').textContent = '$0.00';
+                document.getElementById('grandTotal').textContent = 'ZMW 0.00';
                 return;
             }
 
@@ -178,13 +178,13 @@
                     <img src="${item.image}" alt="${item.title}" class="item-image" onerror="this.src='placeholder.jpg';">
                     <div class="item-details">
                         <h4>${item.title}</h4>
-                        <p>Price: $${item.price.toFixed(2)}</p>
+                        <p>Price: ZMW ${item.price.toFixed(2)}</p>
                     </div>
                     <div class="item-quantity">
                         <input type="number" value="${item.quantity}" min="1" 
                                 onchange="updateQuantity(${item.id}, this.value)">
                     </div>
-                    <div class="item-price">$${itemTotal.toFixed(2)}</div>
+                    <div class="item-price">ZMW ${itemTotal.toFixed(2)}</div>
                     <button class="remove-btn" onclick="removeItem(${item.id})">❌</button>
                 `;
                 itemsContainer.appendChild(itemDiv);
@@ -192,13 +192,12 @@
 
             // Update Summary
             const grandTotal = subtotal + SHIPPING_COST;
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('shipping').textContent = `$${SHIPPING_COST.toFixed(2)}`;
+            document.getElementById('subtotal').textContent = `ZMW ${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `ZMW ${SHIPPING_COST.toFixed(2)}`;
             
-            // Only show shipping row if there's an actual cost (0.00 is hidden)
             document.getElementById('shippingRow').style.display = SHIPPING_COST > 0 ? 'flex' : 'none';
             
-            document.getElementById('grandTotal').textContent = `$${grandTotal.toFixed(2)}`;
+            document.getElementById('grandTotal').textContent = `ZMW ${grandTotal.toFixed(2)}`;
         }
 
         function updateQuantity(id, newQuantity) {
@@ -220,7 +219,6 @@
             alert('Item removed from cart.');
         }
 
-        // Initialize cart display
         renderCart();
     </script>
 </body>
