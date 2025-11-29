@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Book Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .product-image {
+            flex-shrink: 0;
+            width: 300px;
+            height: 400px;
+            background-color: #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-details h1 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .product-details p {
+            color: #555;
+            line-height: 1.6;
+        }
+        .price {
+            font-size: 2em;
+            color: #28a745;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .action-button {
+            background-color: #ffc107;
+            color: #333;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .action-button:hover {
+            background-color: #e0a800;
+        }
+        
+        [span_8](start_span)/* Reviews Section[span_8](end_span) */
+        .reviews-section {
+            margin-top: 30px;
+        }
+        .reviews-section h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .review-form {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .review-form label {
+            font-weight: bold;
+        }
+        .star-rating {
+            font-size: 1.5em;
+            color: gold;
+        }
+        .review-list {
+            margin-top: 15px;
+        }
+        .review-item {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .review-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .review-item .rating {
+            color: orange;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product-header">
+            <div class="product-image">
+                <img id="bookImage" src="book2.jpg" alt="Book Cover">
+            </div>
+            <div class="product-details">
+                <h1 id="bookTitle">Shadows of Rome</h1>
+                <p><strong>Author:</strong> <span id="bookAuthor">Historical Historian</span></p>
+                <p><strong>Genre:</strong> <span id="bookGenre">Fiction</span></p>
+                <p><strong>Seller:</strong> <span id="bookSeller">Roman Booksellers Co.</span></p>
+                <div class="star-rating">⭐⭐⭐⭐ (4.0)</div>
+                <div class="price" id="bookPrice">$18.99</div>
+                
+                [span_9](start_span)<h2>Description[span_9](end_span)</h2>
+                <p id="bookDescription">A gripping historical epic set in the final days of the Roman Empire. Follow the tale of a centurion caught between loyalty and survival as the city collapses around him. This book features stunning imagery and a deeply researched narrative.</p>
+                
+                <button class="action-button" onclick="addToCart(2, 'Shadows of Rome')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            [span_10](start_span)<h2>Customer Reviews & Ratings[span_10](end_span)</h2>
+            <div class="review-form">
+                [span_11](start_span)<p><strong>Leave a Review (Verified Buyers Only)[span_11](end_span):</strong></p>
+                <form id="addReviewForm">
+                    <label for="reviewRating">Rating:</label>
+                    <select id="reviewRating" required>
+                        <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                        <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                        <option value="3">⭐⭐⭐ (3 Stars)</option>
+                        <option value="2">⭐⭐ (2 Stars)</option>
+                        <option value="1">⭐ (1 Star)</option>
+                    </select>
+                    <label for="reviewContent">Review:</label>
+                    <textarea id="reviewContent" rows="4" placeholder="Share your thoughts on the book..." required></textarea>
+                    <button type="submit" class="action-button" style="background-color: #007bff; color: white;">Submit Review</button>
+                </form>
+            </div>
+            
+            <div class="review-list" id="reviewList">
+                <div class="review-item">
+                    <strong>Reviewer: John D.</strong>
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p>Absolutely loved this book! The historical detail was incredible. Highly recommend.</p>
+                </div>
+                <div class="review-item">
+                    <strong>Reviewer: Sarah M.</strong>
+                    <div class="rating">⭐⭐⭐</div>
+                    <p>Good plot, but felt the pacing was a little slow in the middle sections.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple function to mock adding a review
+        document.getElementById('addReviewForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const rating = document.getElementById('reviewRating').value;
+            const content = document.getElementById('reviewContent').value;
+            const reviewList = document.getElementById('reviewList');
+            const stars = '⭐'.repeat(parseInt(rating));
+
+            const newReview = document.createElement('div');
+            newReview.className = 'review-item';
+            newReview.innerHTML = `
+                [span_12](start_span)<strong>Reviewer: You (Pending Admin Moderation[span_12](end_span))</strong>
+                <div class="rating">${stars}</div>
+                <p>${content}</p>
+            `;
+            
+            reviewList.prepend(newReview);
+            [span_13](start_span)alert('Review submitted for moderation[span_13](end_span)!');
+            document.getElementById('addReviewForm').reset();
+        });
+
+        function addToCart(id, title) {
+            alert(`"${title}" (ID: ${id}) added to cart!`);
+        }
+    </script>
+</body>
+</html>
