@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Browse Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .main-content {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .sidebar {
+            width: 250px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        .filters h3 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9em;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .listing-grid {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .book-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .book-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        .book-info {
+            padding: 15px;
+        }
+        .book-info h4 {
+            margin: 0 0 5px 0;
+            color: #007bff;
+            font-size: 1.1em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .book-info p {
+            margin: 0 0 10px 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+        .book-info .price {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 1.2em;
+        }
+        .add-to-cart {
+            background-color: #ffc107;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            font-weight: bold;
+        }
+        .add-to-cart:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Book Listings</h1>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="filters">
+                <h3>Search & Filter</h3>
+                
+                <div class="filter-group">
+                    <label for="searchTitle">Search by Title:</label>
+                    <input type="text" id="searchTitle" onkeyup="filterBooks()" placeholder="Enter title...">
+                </div>
+
+                <div class="filter-group">
+                    <label for="searchAuthor">Search by Author:</label>
+                    <input type="text" id="searchAuthor" onkeyup="filterBooks()" placeholder="Enter author...">
+                </div>
+
+                <div class="filter-group">
+                    <label for="filterGenre">Filter by Genre:</label>
+                    <select id="filterGenre" onchange="filterBooks()">
+                        <option value="">All Genres</option>
+                        <option value="Fiction">Fiction</option>
+                        <option value="Science">Science</option>
+                        <option value="Biography">Biography</option>
+                        <option value="Thriller">Thriller</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sortBy">Sort By:</label>
+                    <select id="sortBy" onchange="filterBooks()">
+                        [span_0](start_span)<option value="popularity">Popularity[span_0](end_span)</option>
+                        [span_1](start_span)<option value="newest">Newest[span_1](end_span)</option>
+                        [span_2](start_span)<option value="priceAsc">Price (Low to High)[span_2](end_span)</option>
+                        [span_3](start_span)<option value="priceDesc">Price (High to Low)[span_3](end_span)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="listing-grid" id="bookGrid">
+            </div>
+    </div>
+
+    <script>
+        const mockBooks = [
+            { id: 1, title: 'The Quantum Leap', author: 'Dr. Anna Physics', genre: 'Science', price: 25.50, popularity: 5, newest: 3, image: 'book1.jpg' },
+            { id: 2, title: 'Shadows of Rome', author: 'Historical Historian', genre: 'Fiction', price: 18.99, popularity: 8, newest: 1, image: 'book2.jpg' },
+            { id: 3, title: 'Code Mastery', author: 'C. Coder', genre: 'Science', price: 40.00, popularity: 2, newest: 5, image: 'book3.jpg' },
+            { id: 4, title: 'The Silent Witness', author: 'Mystery Writer', genre: 'Thriller', price: 12.00, popularity: 10, newest: 2, image: 'book4.jpg' },
+            { id: 5, title: 'Biography of Jane Doe', author: 'A. B. Writer', genre: 'Biography', price: 22.75, popularity: 6, newest: 4, image: 'book5.jpg' },
+        ];
+
+        function renderBooks(books) {
+            const grid = document.getElementById('bookGrid');
+            grid.innerHTML = ''; 
+
+            if (books.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">No books match your criteria.</p>';
+                return;
+            }
+
+            books.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'book-card';
+                card.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}" onerror="this.src='placeholder.jpg';">
+                    <div class="book-info">
+                        <a href="product.html?id=${book.id}"><h4>${book.title}</h4></a>
+                        <p>By: ${book.author}</p>
+                        <p>Genre: ${book.genre}</p>
+                        <p class="price">$${book.price.toFixed(2)}</p>
+                        <button class="add-to-cart" onclick="addToCart(${book.id}, '${book.title}')">Add to Cart</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterBooks() {
+            let filtered = [...mockBooks]; 
+
+            [span_4](start_span)// 1. Filtering by Title[span_4](end_span)
+            const titleSearch = document.getElementById('searchTitle').value.toLowerCase();
+            if (titleSearch) {
+                filtered = filtered.filter(book => book.title.toLowerCase().includes(titleSearch));
+            }
+
+            [span_5](start_span)// 2. Filtering by Author[span_5](end_span)
+            const authorSearch = document.getElementById('searchAuthor').value.toLowerCase();
+            if (authorSearch) {
+                filtered = filtered.filter(book => book.author.toLowerCase().includes(authorSearch));
+            }
+
+            [span_6](start_span)// 3. Filtering by Genre[span_6](end_span)
+            const genreFilter = document.getElementById('filterGenre').value;
+            if (genreFilter) {
+                filtered = filtered.filter(book => book.genre === genreFilter);
+            }
+            
+            [span_7](start_span)// 4. Sorting[span_7](end_span)
+            const sortBy = document.getElementById('sortBy').value;
+            switch (sortBy) {
+                case 'popularity':
+                    filtered.sort((a, b) => b.popularity - a.popularity);
+                    break;
+                case 'newest':
+                    filtered.sort((a, b) => b.newest - a.newest);
+                    break;
+                case 'priceAsc':
+                    filtered.sort((a, b) => a.price - b.price);
+                    break;
+                case 'priceDesc':
+                    filtered.sort((a, b) => b.price - a.price);
+                    break;
+                // Price filter is complex and usually requires range inputs, but for simplicity, we focus on sorting by price here.
+            }
+
+            renderBooks(filtered);
+        }
+
+        function addToCart(id, title) {
+            alert(`"${title}" (ID: ${id}) added to cart!`);
+            // In a real application, this would update local storage or session state.
+        }
+
+        // Initialize display
+        filterBooks();
+    </script>
+</body>
+</html>
