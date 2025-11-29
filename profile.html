@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNC BOOKS - Account Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .profile-button {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .profile-button:hover {
+            background-color: #e0a800;
+        }
+        .role-section {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .role-section p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .role-section button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .seller-button {
+            background-color: #d9534f;
+        }
+        .affiliate-button {
+            background-color: #5cb85c;
+        }
+        .message {
+            margin-top: 15px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>⚙️ Account Settings</h2>
+
+        <form id="profileUpdateForm">
+            <h3>Basic Information</h3>
+
+            <label for="updateName">Name:</label>
+            <input type="text" id="updateName" value="Test User" required>
+
+            <label for="updateEmail">Email:</label>
+            <input type="email" id="updateEmail" value="test@example.com" required>
+            
+            <button type="submit" class="profile-button">Save Basic Changes</button>
+        </form>
+        <p class="message" id="profileMessage"></p>
+        
+        <h3>Role Upgrades</h3>
+        <p style="color: #777;">You are currently a **Buyer**. Apply below to gain Seller or Affiliate permissions.</p>
+
+        <div class="role-section">
+            <p>Become a **Seller** (List books for sale)</p>
+            <button id="applySeller" class="seller-button">Apply Now</button>
+        </div>
+
+        <div class="role-section">
+            <p>Become an **Affiliate** (Earn commission via referrals)</p>
+            <button id="applyAffiliate" class="affiliate-button">Apply Now</button>
+        </div>
+        <p class="message" id="roleMessage"></p>
+    </div>
+
+    <script>
+        document.getElementById('profileUpdateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const newName = document.getElementById('updateName').value;
+            document.getElementById('profileMessage').textContent = `Profile updated successfully for ${newName}.`;
+            
+            setTimeout(() => {
+                document.getElementById('profileMessage').textContent = '';
+            }, 3000);
+        });
+
+        document.getElementById('applySeller').addEventListener('click', function() {
+            const roleMessage = document.getElementById('roleMessage');
+            roleMessage.textContent = "Seller application submitted! Awaiting Admin approval.";
+            roleMessage.style.color = '#d9534f'; 
+            // In a real app, this would trigger an Admin review process.
+        });
+
+        document.getElementById('applyAffiliate').addEventListener('click', function() {
+            const roleMessage = document.getElementById('roleMessage');
+            roleMessage.textContent = "Affiliate application submitted! You'll receive a notification upon approval.";
+            roleMessage.style.color = '#5cb85c'; 
+            // In a real app, this would trigger an Admin review process.
+        });
+    </script>
+</body>
+</html>
