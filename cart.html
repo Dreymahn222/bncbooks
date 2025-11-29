@@ -131,15 +131,15 @@
                     <span>Subtotal:</span>
                     <span id="subtotal">$0.00</span>
                 </div>
-                <div class="summary-row">
+                <div class="summary-row" id="shippingRow" style="display: none;">
                     <span>Shipping:</span>
-                    <span id="shipping">$5.00</span>
+                    <span id="shipping">$0.00</span>
                 </div>
                 <div class="summary-total summary-row">
                     <span>Total:</span>
-                    <span id="grandTotal">$5.00</span>
+                    <span id="grandTotal">$0.00</span>
                 </div>
-                [span_14](start_span)<a href="checkout.html"><button class="checkout-btn">Proceed to Checkout[span_14](end_span)</button></a>
+                <a href="checkout.html"><button class="checkout-btn">Proceed to Checkout</button></a>
             </div>
         </div>
     </div>
@@ -149,7 +149,8 @@
             { id: 1, title: 'The Quantum Leap', price: 25.50, quantity: 1, image: 'book1.jpg' },
             { id: 4, title: 'The Silent Witness', price: 12.00, quantity: 2, image: 'book4.jpg' },
         ];
-        const SHIPPING_COST = 5.00;
+        // Corrected: Shipping is 0.00 for digital goods
+        const SHIPPING_COST = 0.00; 
 
         function renderCart() {
             const itemsContainer = document.getElementById('cartItems');
@@ -158,7 +159,7 @@
             if (cart.length === 0) {
                 document.getElementById('emptyCartMessage').style.display = 'block';
                 document.getElementById('subtotal').textContent = '$0.00';
-                document.getElementById('shipping').textContent = '$0.00';
+                document.getElementById('shippingRow').style.display = 'none';
                 document.getElementById('grandTotal').textContent = '$0.00';
                 return;
             }
@@ -193,6 +194,10 @@
             const grandTotal = subtotal + SHIPPING_COST;
             document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
             document.getElementById('shipping').textContent = `$${SHIPPING_COST.toFixed(2)}`;
+            
+            // Only show shipping row if there's an actual cost (0.00 is hidden)
+            document.getElementById('shippingRow').style.display = SHIPPING_COST > 0 ? 'flex' : 'none';
+            
             document.getElementById('grandTotal').textContent = `$${grandTotal.toFixed(2)}`;
         }
 
@@ -203,7 +208,7 @@
                 if (qty > 0) {
                     cart[index].quantity = qty;
                 } else {
-                    removeItem(id); // Remove if quantity goes to 0
+                    removeItem(id); 
                 }
                 renderCart();
             }
